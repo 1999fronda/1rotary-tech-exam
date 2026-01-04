@@ -17,5 +17,6 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('projects')->group(function () {
         Route::post('/store', [ProjectController::class, 'store'])->name('projects.store');
+        Route::delete('/{project}/delete', [ProjectController::class, 'destroy'])->name('projects.destroy');
     });
 });

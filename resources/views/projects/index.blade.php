@@ -32,7 +32,8 @@
                             <div class="d-flex gap-1">
                                 <button class="btn btn-outline-primary btn-sm">View</button>
                                 <button class="btn btn-outline-primary btn-sm">Edit</button>
-                                <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                <button class="btn btn-outline-danger btn-sm delete"
+                                    data-url="{{ route('projects.destroy', $project->id) }}">Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -47,4 +48,5 @@
 @push('scripts')
     @vite('resources/js/projects/table.js')
     @vite('resources/js/projects/create.js')
+    @vite('resources/js/projects/delete.js')
 @endpush

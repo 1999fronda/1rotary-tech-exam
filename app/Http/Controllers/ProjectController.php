@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,5 +55,22 @@ class ProjectController extends Controller
                 'message' => 'Project creation failed. Name may already exist.'
             ], 500);
         }
+    }
+
+    public function destroy(Project $project)
+    {
+        // Check if logged in user owns the project
+        if ($project->user_id !== auth()->id()) {
+            return response()->json([
+                'message' => 'You are not allowed to delete this project.'
+            ], 403);
+        }
+
+        $project->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Project deleted successfully!'
+        ]);
     }
 }
