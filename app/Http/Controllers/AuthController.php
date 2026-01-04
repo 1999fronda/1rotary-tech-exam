@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -37,7 +40,36 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        try {
+            $user = User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+            ]);
+
+            /**
+             * @NOTE: for high security apps like banking or healthcare
+             * i'd redirect them to login page first
+             * but since it's just a simple app, i will log them in immediately
+             * after the successful registration
+             */
+
+            Auth::login($user);
+
+            return redirect()->route('dashboard');
+        } catch (\Throwable $th) {
+            Log::error('Registration failed', [
+                'exception' => $th,
+            ]);
+
+            return back()->with('error', 'Something went wrong while creating your account. Please try again.')->withInput();
+        }
     }
 
     public function logout(Request $request)
