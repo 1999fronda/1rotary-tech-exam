@@ -15,11 +15,6 @@
                 {{ session('error') }}
             </div>
         @endif
-        @if (session('warning'))
-            <div class="alert alert-danger">
-                {{ session('warning') }}
-            </div>
-        @endif
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
