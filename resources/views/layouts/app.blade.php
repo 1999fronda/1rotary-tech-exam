@@ -17,6 +17,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -49,8 +51,7 @@
         </div>
     </nav>
 
-    <div class="container p-3">
-        <h2 class="mb-3">@yield('header')</h2>
+    <div class="container mt-3">
         @yield('content')
     </div>
 
@@ -61,6 +62,11 @@
                 'X-Requested-With': 'XMLHttpRequest'
             }
         });
+
+        // get spinner element by button
+        function getButtonSpinner(button) {
+            return button.find(".spinner-border");
+        }
     </script>
 
     @stack('scripts')

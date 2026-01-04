@@ -14,4 +14,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [ProjectController::class, 'index'])->name('dashboard');
+
+    Route::prefix('projects')->group(function () {
+        Route::post('/store', [ProjectController::class, 'store'])->name('projects.store');
+    });
 });
