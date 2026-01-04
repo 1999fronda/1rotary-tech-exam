@@ -3,13 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        return view('projects.index');
+        $user = Auth::user();
+
+        // I usually use eloquent for small data
+        // and query builder for large data
+
+        // for mysql join demonstration
+        $projects = DB::table('projects')
+            ->join('users', 'users.id', '=', 'projects.user_id')
+            ->where('users.id', $user->id)
+            ->select('projects.id', 'projects.name', 'projects.description', 'projects.created_at')
+            ->get();
+
+        return view('projects.index', ['projects' => $projects]);
     }
 
     // Create a project

@@ -16,8 +16,15 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+    {{-- Sweel Alert 2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- DataTables --}}
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.3.6/datatables.min.css" rel="stylesheet"
+        integrity="sha384-Op52dEl5kUgSEZdHZBipbmlFw81qZygnw1QZv+p1KFhUsirA7OJQnkaHgcJmXCTj" crossorigin="anonymous">
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.3.6/datatables.min.js"
+        integrity="sha384-h8drA99ZjRhIv1cyWeNleFRr89bNrnvYdIG5Rc523s5jZLUmObH2k1ZxR8ldNEvJ" crossorigin="anonymous">
+    </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -37,21 +44,27 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Projects</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button type="submit" class="nav-link" href="#">Logout</button>
-                        </form>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form id="logoutForm" action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item" href="#"
+                                        onclick="return confirmLogout(event)">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-3">
+    <div class="container my-3">
         @yield('content')
     </div>
 
@@ -62,6 +75,13 @@
                 'X-Requested-With': 'XMLHttpRequest'
             }
         });
+
+        function confirmLogout(event) {
+            event.preventDefault(); // prevent immediate form submission
+            if (confirm('Are you sure you want to logout?')) {
+                $('#logoutForm').submit();
+            }
+        }
 
         // get spinner element by button
         function getButtonSpinner(button) {
