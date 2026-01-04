@@ -57,6 +57,67 @@ class ProjectController extends Controller
         }
     }
 
+    public function edit(Project $project)
+    {
+        // Check if logged in user owns the project
+        if ($project->user_id !== auth()->id()) {
+            return response()->json([
+                'message' => 'You are not allowed to edit this project.'
+            ], 403);
+        }
+
+        return response()->json($project);
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        try {
+            // Check if logged in user owns the project
+            if ($project->user_id !== $request->user()->id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are not allowed to update this project.'
+                ], 403);
+            }
+
+            $request->validate(
+                [
+                    'editName' => 'required|string|max:255',
+                    'editDescription' => 'nullable|string',
+                ],
+                [
+                    'editName.required' => 'Project name is required.',
+                    'editName.max' => 'Project name must not exceed 255 characters.',
+                ]
+            );
+
+            $project->update([
+                'name' => $request['editName'],
+                'description' => $request['editDescription'],
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Project updated successfully!'
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 422);
+        } catch (\Throwable $th) {
+            Log::error('Error updating project', [
+                'error' => $th->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Project update failed.'
+            ], 500);
+        }
+    }
+
+
     public function destroy(Project $project)
     {
         // Check if logged in user owns the project

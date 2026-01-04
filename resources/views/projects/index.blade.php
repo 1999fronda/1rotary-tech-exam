@@ -31,7 +31,8 @@
                         <td>
                             <div class="d-flex gap-1">
                                 <button class="btn btn-outline-primary btn-sm">View</button>
-                                <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button class="btn btn-outline-primary btn-sm edit"
+                                    data-url="{{ route('projects.edit', $project->id) }}">Edit</button>
                                 <button class="btn btn-outline-danger btn-sm delete"
                                     data-url="{{ route('projects.destroy', $project->id) }}">Delete</button>
                             </div>
@@ -43,10 +44,12 @@
     </div>
 
     @include('projects.create-modal')
+    @include('projects.edit-modal')
 @endsection
 
 @push('scripts')
     @vite('resources/js/projects/table.js')
     @vite('resources/js/projects/create.js')
+    @vite('resources/js/projects/update.js')
     @vite('resources/js/projects/delete.js')
 @endpush

@@ -1,4 +1,3 @@
-<!-- Modal -->
 <div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -10,19 +9,9 @@
                 <form action="{{ route('projects.store') }}" id="createProjectForm">
                     @csrf
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="name" class="form-control" id="name" name="name" maxlength="255" required>
-                        @error('name')
-                            <div class="small text-danger mt-1">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description <span
@@ -30,12 +19,6 @@
                         <div class="form-floating">
                             <textarea class="form-control" name="description" id="description" style="height: 100px"></textarea>
                         </div>
-
-                        @error('name')
-                            <div class="small text-danger mt-1">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div>
                         <button type="submit" id="createSubmitButton" class="btn btn-dark">
