@@ -13,7 +13,10 @@ class AuthController extends Controller
 
     public function showRegister() {}
 
-    public function login() {}
+    public function login(Request $request)
+    {
+        dd($request);
+    }
 
     public function register() {}
 
