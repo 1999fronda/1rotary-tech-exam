@@ -12,7 +12,10 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function showRegister() {}
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
 
     public function login(Request $request)
     {
@@ -32,7 +35,10 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid login credentials.')->withInput();
     }
 
-    public function register() {}
+    public function register(Request $request)
+    {
+        dd($request);
+    }
 
     public function logout(Request $request)
     {

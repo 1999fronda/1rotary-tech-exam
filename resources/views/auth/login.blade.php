@@ -38,5 +38,7 @@
             <label class="form-check-label" for="remember_me">Remember me</label>
         </div>
         <button type="submit" class="btn btn-primary w-100">Login</button>
+        <p class="mt-3">Don't have an account yet? <a href="{{ route('register.show') }}"
+                class="text-decoration-none">Register</a></p>
     </form>
 @endsection
