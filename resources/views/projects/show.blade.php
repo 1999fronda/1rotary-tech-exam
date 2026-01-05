@@ -11,7 +11,15 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-header fw-bold">Tasks</div>
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold">Tasks</span>
+                <button type="button" class="btn btn-dark btn-dark" data-bs-toggle="modal"
+                    data-bs-target="#createTaskModal">
+                    Create Task
+                </button>
+            </div>
+        </div>
         <div class="card-body p-3">
             <div class="table-responsive">
                 <table id="taskTable" class="table table-striped">
@@ -49,12 +57,11 @@
                                 </td>
                                 <td>
                                     <div class="d-flex gap-1">
-                                <button class="btn btn-outline-primary btn-sm disabled">View</button>
-                                <button class="btn btn-outline-primary btn-sm disabled edit"
-                                    >Edit</button>
-                                <button class="btn btn-outline-danger btn-sm delete"
-                                    data-url="{{ route('tasks.destroy', $task->id) }}">Delete</button>
-                            </div>
+                                        <button class="btn btn-outline-primary btn-sm disabled">View</button>
+                                        <button class="btn btn-outline-primary btn-sm disabled edit">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm delete"
+                                            data-url="{{ route('tasks.destroy', $task->id) }}">Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -64,9 +71,11 @@
         </div>
     </div>
 
+    @include('projects.tasks.create-modal')
 @endsection
 
 @push('scripts')
     @vite('resources/js/projects/tasks/table.js')
+    @vite('resources/js/projects/tasks/create.js')
     @vite('resources/js/projects/tasks/delete.js')
 @endpush
