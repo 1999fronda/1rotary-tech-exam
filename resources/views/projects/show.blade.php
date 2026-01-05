@@ -48,13 +48,13 @@
                                     {{ \Carbon\Carbon::parse($task->created_at)->format('M d, Y h:i A') }}
                                 </td>
                                 <td>
-                                    {{-- <div class="d-flex gap-1">
-                                <button class="btn btn-outline-primary btn-sm">View</button>
-                                <button class="btn btn-outline-primary btn-sm edit"
-                                    data-url="{{ route('projects.edit', $project->id) }}">Edit</button>
+                                    <div class="d-flex gap-1">
+                                <button class="btn btn-outline-primary btn-sm disabled">View</button>
+                                <button class="btn btn-outline-primary btn-sm disabled edit"
+                                    >Edit</button>
                                 <button class="btn btn-outline-danger btn-sm delete"
-                                    data-url="{{ route('projects.destroy', $project->id) }}">Delete</button>
-                            </div> --}}
+                                    data-url="{{ route('tasks.destroy', $task->id) }}">Delete</button>
+                            </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -68,4 +68,5 @@
 
 @push('scripts')
     @vite('resources/js/projects/tasks/table.js')
+    @vite('resources/js/projects/tasks/delete.js')
 @endpush

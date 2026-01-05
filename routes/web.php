@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -21,5 +22,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
         Route::put('/{project}/update', [ProjectController::class, 'update'])->name('projects.update');
         Route::delete('/{project}/delete', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    });
+    Route::prefix('tasks')->group(function () {
+        Route::delete('/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     });
 });
