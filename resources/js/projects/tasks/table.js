@@ -1,5 +1,4 @@
-// @NOTE: I only used client-side datatables bc the app is small
-window.projectTable = $("#projectTable").DataTable({
+window.taskTable = $("#taskTable").DataTable({
     searching: true,
     order: [[2, 'asc']],
     columnDefs: [
@@ -7,7 +6,7 @@ window.projectTable = $("#projectTable").DataTable({
         { searchable: false, targets: -1 },
     ],
     language: {
-        emptyTable: "No projects found",
+        emptyTable: "No tasks found in this project",
     },
     stateSave: true,
 });

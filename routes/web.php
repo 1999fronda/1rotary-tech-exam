@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [ProjectController::class, 'index'])->name('dashboard');
 
     Route::prefix('projects')->group(function () {
+        Route::get('/{project}', [ProjectController::class, 'show'])->name('projects.show');
         Route::post('/store', [ProjectController::class, 'store'])->name('projects.store');
         Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
         Route::put('/{project}/update', [ProjectController::class, 'update'])->name('projects.update');

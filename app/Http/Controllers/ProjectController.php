@@ -24,7 +24,16 @@ class ProjectController extends Controller
             ->select('projects.id', 'projects.name', 'projects.description', 'projects.created_at')
             ->get();
 
-        return view('projects.index', ['projects' => $projects]);
+        return view('projects.index', ['projects' => $projects, 'name' => $user->name]);
+    }
+
+    public function show(Project $project)
+    {
+        if ($project->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('projects.show', ['project' => $project]);
     }
 
     // Create a project
