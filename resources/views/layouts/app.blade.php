@@ -44,20 +44,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Projects</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            {{ auth()->user()->name }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <form id="logoutForm" action="{{ route('logout') }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item" href="#"
-                                        onclick="return confirmLogout(event)">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <form id="logoutForm" action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button type="submit" class="nav-link" href="#" onclick="return confirmLogout(event)">Logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>
